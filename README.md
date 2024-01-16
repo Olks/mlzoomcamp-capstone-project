@@ -1,5 +1,5 @@
-## mlzoomcamp-capstone-1-project
-This is a capstone-1 project of [ML Engineering Zoomcamp by DataTalks](https://github.com/DataTalksClub/machine-learning-zoomcamp) - Cohort 2023
+## mlzoomcamp-capstone-project
+This is a capstone project of [ML Engineering Zoomcamp by DataTalks](https://github.com/DataTalksClub/machine-learning-zoomcamp) - Cohort 2023
 
 # Energy Behavior of Solar Panels Prosumers in Estonia
 ### Who are prosumers? 
