@@ -51,3 +51,12 @@ Fields in data.csv:
 - **product_type** - ID code with the following mapping of codes to contract types: {0: "Combined", 1: "Fixed", 2: "General service", 3: "Spot"}.
 - **target** - The consumption or production amount for the relevant segment for the hour. The segments are defined by the county, is_business, and product_type.
 - **is_consumption** - Boolean for whether or not this row's target is consumption or production.
+
+- **temperature** - The air temperature at 2 meters above ground in degrees Celsius.
+- **dewpoint** - The dew point temperature at 2 meters above ground in degrees Celsius.
+- **cloudcover_[low/mid/high/total]** - The percentage of the sky covered by clouds in the following altitude bands: 0-2 km, 2-6, 6+, and total.
+- **10_metre_[u/v]_wind_component** - The [eastward/northward] component of wind speed measured 10 meters above surface in meters per second.
+- **direct_solar_radiation** - The direct solar radiation reaching the surface on a plane perpendicular to the direction of the Sun accumulated during the preceding hour, in watt-hours per square meter.
+- **surface_solar_radiation_downwards** - The solar radiation, both direct and diffuse, that reaches a horizontal plane at the surface of the Earth, in watt-hours per square meter.
+- **snowfall** - Snowfall over the previous hour in units of meters of water equivalent.
+- **total_precipitation** - The accumulated liquid, comprising rain and snow that falls on Earth's surface over the preceding hour, in units of meters.
