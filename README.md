@@ -1,11 +1,13 @@
-## mlzoomcamp-capstone-project
-This is a capstone project of [ML Engineering Zoomcamp by DataTalks](https://github.com/DataTalksClub/machine-learning-zoomcamp) - Cohort 2023
+# Prediction of Solar Panels Energy Production
+This is a capstone project of [**ML Engineering Zoomcamp by DataTalks**](https://github.com/DataTalksClub/machine-learning-zoomcamp) - Cohort 2023
+<br>
+<br>
 
 <img src="solar-2666770_1920-696x464.jpg"/>
 
 **Estonian Dairy Farm with solar panels installed on the roof [(Image source)](https://ceenergynews.com/innovation/eesti-energia-to-install-smart-solar-park-for-the-estonia-dairy-farm/)**
 
-# Energy Production by Solar Panels Prosumers in Estonia
+## Energy Production by Solar Panels Prosumers in Estonia
 ### Who are prosumers? 
 Those kinds of customers of electricity providers that both consume and produce energy are called **prosumers**.<br> 
 The term is a portmanteau of the words producer and consumer. Here a single prosumer is an entity that produces energy specifically by solar panels.<br>
