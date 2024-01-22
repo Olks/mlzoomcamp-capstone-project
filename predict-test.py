@@ -15,7 +15,6 @@ test_data_file = 'test_data.json'
 # Opening JSON file
 with open(test_data_file) as json_file:
     data = json.load(json_file)
-    print(data)
 response = requests.post(url, json=data).json()
 prediction = response["prediction"]
-print(f"Prodicted production of solar energy for the next hour starting {data['datetime']}: {round(prediction,3)} MWh")
+print(f"Predicted production of solar energy in Läänemaa district in Estonia, for the next hour starting {data['datetime']}: {round(prediction,3)} MWh")

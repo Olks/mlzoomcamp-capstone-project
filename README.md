@@ -37,7 +37,7 @@ Weather greatly influences the production of energy by solar panels so a weather
 ### Data
 Data is based on data from Kaggle competition: [Enefit - Predict Energy Behavior of Prosumers](https://www.kaggle.com/competitions/predict-energy-behavior-of-prosumers).<br>
 To decrease the size of the dataset we limit the data to only **one district in Estonia**.
-The chosen district is mapped to **number 6** which is **Läänemaa**, located in western Estonia and borders the Baltic Sea to the north and west.<br>
+The chosen district is **Läänemaa**, located in western Estonia and borders the Baltic Sea to the north and west.<br>
     
 
 #### Data fields:
@@ -96,22 +96,28 @@ We train a neural network using Keras from Tensorflow library.
 <br>
 
 ## Instructions how to run the project locally 
-- You need to have a Docker installed on your computer.
-1. Clone the repository, run:
+1. Clone the repository, run in the Terminal:
 	- `git clone https://github.com/Olks/mlzoomcamp-capstone-project.git`
-2. Go to project directory and build docker image from Dockerfile, run:   (it may take a few minutes)
+2. To run notebooks you need to install all the dependencies:
+    - `cd mlzoomcamp-capstone-project`
+    - `pip install pipenv`
+    - `pipenv install` (Note that Pipenv file contain Linux and Mac specific library, <b>gunicorn</b>. If you use Windows please remove it from Pipfile.)
+    - `pipenv shell`
+    - `jupyter lab`<br>
+
+Note: To follow with the next steps you need to have a Docker installed on your computer.
+
+3. Go to project directory and build docker image from Dockerfile, run:   (it may take a few minutes)
 	- `docker build -t solar-energy-prediction .`
-3. Start a container from the solar-energy-prediction image with:
+4. Start a container from the solar-energy-prediction image with:
 	- `docker run -it --rm -p 9696:9696 solar-energy-prediction`  
-4. To run test prediction (reading sample weather data from test_data.json file) open another terminal and run:
-	- `python predict-test.py` 
-		- need to have Python, requests and pandas installed locally
-	or without additional installations<br> 
+5. To run test prediction (reading sample weather data from test_data.json file) open another terminal and run:
+	- `pipenv shell`
+    - `python predict-test.py`<br>
+
+	or just use curl to get the raw prediction
+ 
 	- `curl -X POST -H "Content-Type: application/json" -d @test_data.json http://localhost:9696/predict` 
-5. To run notebooks you need to install all the dependencies:
-	- in Terminal go to the project directory and run `pipenv install` and then `pipenv shell` (or first `pip install pipenv` if you don't have pipenv installed) 
-		- note that Pipenv file contain Linux and Mac specific library -> <b>gunicorn</b>. If you use Windows please remove it from Pipfile.
-	- now you can open noetbooks with Jupyter run e.g. `jupyter lab`  
 	
 <br>
 <br>

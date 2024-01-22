@@ -24,8 +24,6 @@ app = Flask('solar_energy_prediction')
 def predict():
     solar_data = request.get_json()
     df = pd.Series(solar_data).to_frame().T
-    print(solar_data)
-    print(df)
     
     df['datetime'] = pd.to_datetime(df['datetime'])
     df['year'] = df['datetime'].dt.year
