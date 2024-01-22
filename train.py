@@ -6,6 +6,7 @@
 import os.path
 import numpy as np
 import pandas as pd
+from pickle import dump
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
@@ -21,11 +22,12 @@ tf.keras.utils.set_random_seed(321)
 
 
 MODEL_FILE_PATH = 'model_solar_energy_production.keras'
+SCALER_FILE_PATH = 'scaler.pkl'
 
 # parameters
 SIZE = 128 
 LEARNING_RATE = 0.01
-n_splits = 4
+n_splits = 5
 
 
 # read data file
@@ -74,9 +76,6 @@ features = [
     # date and time
     'year',
     'month',
-    'day',
-    'dayofyear',
-    'hour',
     'weekday',
     'sin_dayofyear',
     'cos_dayofyear',
@@ -92,7 +91,6 @@ features = [
     'target_6d_lag',
     'target_7d_lag'
 ]
-
 
 # split into full train and test set
 df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=111)
@@ -197,9 +195,11 @@ X_test = df_test[features]
 # scale
 scaler = StandardScaler()
 scaler.fit(X_train)
+dump(scaler, open(SCALER_FILE_PATH, 'wb'))
+print(f'Scaler saved to \'{SCALER_FILE_PATH}\'')
 
-X_train_scaled = scaler.transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_train_scaled = scaler.transform(X_train[features])
+X_test_scaled = scaler.transform(X_test[features])
 
 history = train(X_train_scaled, y_train, X_test_scaled, y_test, learning_rate=LEARNING_RATE, size=SIZE, do_checkpoint=True)
 
