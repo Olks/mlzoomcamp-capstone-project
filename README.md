@@ -97,17 +97,13 @@ We train a neural network using Keras from Tensorflow library.
 	- `git clone https://github.com/Olks/mlzoomcamp-capstone-project.git`
 2. Go to project directory and build docker image from Dockerfile, run:   (it may take a few minutes)
 	- `docker build -t solar-energy-prediction .`
-3. Start a container from the sleep-detection image with:
+3. Start a container from the solar-energy-prediction image with:
 	- `docker run -it --rm -p 9696:9696 solar-energy-prediction`  
 4. To run test prediction (reading sample accelerometer data from data/test_data.json file) open another terminal and run:
 	- `python predict-test.py` 
-		- need to have Python, requests, pandas and numpy installed locally; check predict-test-requirements.txt and .python_version files
-		- returns -> table of onset and wakeup events 
-	
-	or<br> 
+		- need to have Python, requests, pandas and numpy installed locally
+	or without additional installations<br> 
 	- `curl -X POST -H "Content-Type: application/json" -d @data/test_data.json http://localhost:9696/predict` 
-		- should run without additional installations 
-		- returns -> json with onset and wakeup events
 5. To run notebooks you need to install all the dependencies:
 	- in Terminal go to the project directory and run `pipenv install` and then `pipenv shell` (or first `pip install pipenv` if you don't have pipenv installed) 
 		- note that Pipenv file contain Linux and Mac specific library -> <b>gunicorn</b>. If you use Windows please remove it from Pipfile.
