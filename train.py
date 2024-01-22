@@ -15,7 +15,7 @@ from sklearn.metrics import mean_squared_error
 
 import keras
 from keras.models import Sequential
-from keras.layers import Dense, Input
+from keras.layers import Dense, Input, Dropout
 
 import tensorflow as tf
 tf.keras.utils.set_random_seed(321)
@@ -25,8 +25,9 @@ MODEL_FILE_PATH = 'model_solar_energy_production.keras'
 SCALER_FILE_PATH = 'scaler.pkl'
 
 # parameters
-SIZE = 128 
+SIZE = 256 
 LEARNING_RATE = 0.01
+DROPRATE = 0.2
 n_splits = 5
 
 
@@ -97,21 +98,22 @@ df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=111)
 
 
 # method to create nn model
-def get_model(n_inputs, n_outputs, learning_rate=0.01, size=32):
+def get_model(n_inputs, n_outputs, learning_rate=0.01, size=32, droprate=0.5):
     model = Sequential()
     model.add(Dense(64, input_dim=n_inputs, kernel_initializer='he_uniform', activation='relu'))
     model.add(Dense(size, input_dim=64, kernel_initializer='he_uniform', activation='relu'))
+    model.add(Dropout(rate=droprate))
     model.add(Dense(n_outputs, activation='relu'))
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
         loss='mean_squared_error', 
         metrics=['mse'])
     return model
+    
 
+def train(df_train, y_train, df_val, y_val, learning_rate=0.01, size=128, droprate=0.5, do_checkpoint=False):
 
-def train(df_train, y_train, df_val, y_val, learning_rate=0.01, size=128, do_checkpoint=False):
-
-    model = get_model(df_train.shape[1], 1, learning_rate=learning_rate, size=size)
+    model = get_model(df_train.shape[1], 1, learning_rate=learning_rate, size=size, droprate=droprate)
 
     if do_checkpoint:
         print('Training the NN model with checkpoints')
@@ -171,7 +173,7 @@ for train_idx, val_idx in kfold.split(df_full_train):
     X_val_scaled = scaler.transform(X_val)
 
     print(f'training a model for the fold {fold} ...')
-    history = train(X_train_scaled, y_train, X_val_scaled, y_val, learning_rate=LEARNING_RATE, size=SIZE)
+    history = train(X_train_scaled, y_train, X_val_scaled, y_val, learning_rate=LEARNING_RATE, size=SIZE, droprate=DROPRATE)
     
     mse = history['val_mse'][-1]
     scores.append(mse)
@@ -201,7 +203,7 @@ print(f'Scaler saved to \'{SCALER_FILE_PATH}\'')
 X_train_scaled = scaler.transform(X_train[features])
 X_test_scaled = scaler.transform(X_test[features])
 
-history = train(X_train_scaled, y_train, X_test_scaled, y_test, learning_rate=LEARNING_RATE, size=SIZE, do_checkpoint=True)
+history = train(X_train_scaled, y_train, X_test_scaled, y_test, learning_rate=LEARNING_RATE, size=SIZE, droprate=DROPRATE, do_checkpoint=True)
 
 mse = history['val_mse'][-1]
 print(f'final model MSE: {mse}')

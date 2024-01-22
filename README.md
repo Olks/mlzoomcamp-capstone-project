@@ -84,8 +84,12 @@ The chosen district is mapped to **number 6** which is **Läänemaa**, located i
 We train a neural network using Keras from Tensorflow library.
 
 #### Steps in fitting the model:
-##### Adjusting Learning Rate
-##### Adjusting the size of Inner Layer of Neural Network
+##### 0. Training the first small network 
+##### 1. Adding Inner Layer
+##### 2. Adjusting Learning Rate
+##### 3. Adjusting the size of Inner Layer of Neural Network
+##### 4. Adding a Dropout and adjusting droprate
+##### 5. Adding Checkpointing to select the best model
 
 <br>
 <br>
@@ -99,11 +103,11 @@ We train a neural network using Keras from Tensorflow library.
 	- `docker build -t solar-energy-prediction .`
 3. Start a container from the solar-energy-prediction image with:
 	- `docker run -it --rm -p 9696:9696 solar-energy-prediction`  
-4. To run test prediction (reading sample accelerometer data from data/test_data.json file) open another terminal and run:
+4. To run test prediction (reading sample weather data from test_data.json file) open another terminal and run:
 	- `python predict-test.py` 
-		- need to have Python, requests, pandas and numpy installed locally
+		- need to have Python, requests and pandas installed locally
 	or without additional installations<br> 
-	- `curl -X POST -H "Content-Type: application/json" -d @data/test_data.json http://localhost:9696/predict` 
+	- `curl -X POST -H "Content-Type: application/json" -d @test_data.json http://localhost:9696/predict` 
 5. To run notebooks you need to install all the dependencies:
 	- in Terminal go to the project directory and run `pipenv install` and then `pipenv shell` (or first `pip install pipenv` if you don't have pipenv installed) 
 		- note that Pipenv file contain Linux and Mac specific library -> <b>gunicorn</b>. If you use Windows please remove it from Pipfile.
@@ -113,7 +117,7 @@ We train a neural network using Keras from Tensorflow library.
 <br>
 
 ## Deployment in AWS Elastic Beanstalk
-1. Create an instance of EB in AWS Cloud -> "sleep-detection-env"
+1. Create an instance of EB in AWS Cloud -> 'solar-energy-prediction-env'
 - `$ eb init -p docker -r eu-west-1 solar-energy-prediction-env`
 - `$ eb create solar-energy-prediction-env`
 - `$ eb logs solar-energy-prediction-env`
